@@ -1,0 +1,73 @@
+{
+  "name": "react-next-starter",
+  "version": "0.0.1",
+  "description": "Rect project starter",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ismail-codar/react-next-starter.git"
+  },
+  "keywords": [
+    "react",
+    "material-ui",
+    "starter"
+  ],
+  "author": "ismail codar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ismail-codar/react-next-starter/issues"
+  },
+  "homepage": "https://github.com/ismail-codar/react-next-starter#readme",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.52",
+    "@babel/preset-env": "^7.0.0-beta.52",
+    "@babel/preset-react": "^7.0.0-beta.52",
+    "@babel/preset-stage-0": "^7.0.0-beta.52",
+    "@babel/preset-stage-1": "^7.0.0-beta.52",
+    "@babel/preset-typescript": "^7.0.0-beta.52",
+    "@material-ui/core": "^1.3.1",
+    "@material-ui/icons": "1.1.0",
+    "@types/chai": "^4.1.4",
+    "@types/classnames": "^2.2.4",
+    "@types/jasmine": "^2.8.8",
+    "@types/node": "^10.5.2",
+    "@types/web-animations-js": "^2.2.6",
+    "chai": "^4.1.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.2",
+    "css-loader": "^1.0.0",
+    "extract-loader": "^2.0.1",
+    "file-loader": "^1.1.11",
+    "fork-ts-checker-webpack-plugin": "^0.4.2",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "jasmine": "^3.1.0",
+    "jasmine-ts": "^0.2.1",
+    "lerna": "^2.11.0",
+    "mini-css-extract-plugin": "^0.4.1",
+    "react-hot-loader": "^4.3.3",
+    "style-loader": "^0.21.0",
+    "ts-loader": "^4.4.2",
+    "typescript": "^2.9.2",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.15.1",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4",
+    "workbox-webpack-plugin": "^3.3.1"
+  },
+  "dependencies": {
+    "@reach/router": "^1.1.1",
+    "@types/react-dom": "^16.0.6",
+    "add": "^2.0.6",
+    "classnames": "^2.2.6",
+    "react": "^16.4.1",
+    "react-contextual": "^5.0.2",
+    "react-dom": "^16.4.1",
+    "yarn": "^1.7.0"
+  }
+}
