@@ -5,10 +5,48 @@ const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { GenerateSW, InjectManifest } = require("workbox-webpack-plugin");
 const devMode = process.env.NODE_ENV !== "production";
+
+const plugins = [
+  new webpack.NamedModulesPlugin(),
+  new HtmlWebpackPlugin({
+    title: "Progressive Web Application"
+  }),
+  new MiniCssExtractPlugin({
+    filename: devMode ? "[name].css" : "[name].[hash].css",
+    chunkFilename: devMode ? "[id].css" : "[id].[hash].css"
+  })
+];
+
+if (devMode) {
+  plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+    new FriendlyErrorsWebpackPlugin({ clearConsole: true }),
+    new ForkTsCheckerWebpackPlugin()
+  );
+} else {
+  plugins.push(
+    new CleanWebpackPlugin("dist", { root: "/" }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      reportFilename: "report.html",
+      openAnalyzer: true,
+      logLevel: "info"
+    }),
+    new CopyPlugin([{ from: "src/app/app.html", to: "" }]),
+    new CleanWebpackPlugin(["dist"]),
+    new GenerateSW({
+      swDest: "sw.js",
+      clientsClaim: true,
+      skipWaiting: true
+    }),
+    new InjectManifest({ swSrc: "sw.js" })
+  );
+}
 
 module.exports = {
   context: __dirname,
@@ -16,8 +54,8 @@ module.exports = {
     app: path.resolve(__dirname, "src/index")
   },
   output: {
-    filename: "[name].js",
-    path: "/dist"
+    filename: "[name].[hash].bundle.js",
+    path: path.resolve(__dirname, "dist")
   },
   mode: devMode ? "development" : "production",
 
@@ -49,11 +87,11 @@ module.exports = {
   },
 
   devtool: devMode ? "source-map" : undefined,
-  optimization: {
-    removeAvailableModules: false,
-    removeEmptyChunks: false,
-    splitChunks: false
-  },
+  optimization: devMode
+    ? undefined
+    : {
+        chunks: "all"
+      },
   module: {
     rules: [
       {
@@ -86,44 +124,7 @@ module.exports = {
     ]
   },
 
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new ForkTsCheckerWebpackPlugin(),
-    new FriendlyErrorsWebpackPlugin({ clearConsole: true }),
-    // new CopyPlugin([{ from: "src/app/app.html", to: "" }]),
-    new CleanWebpackPlugin("dist", { root: "/" }),
-    // new BundleAnalyzerPlugin({
-    //   // Can be `server`, `static` or `disabled`.
-    //   // In `server` mode analyzer will activate HTTP server to show bundle report.
-    //   // In `static` mode single HTML file with bundle report will be generated.
-    //   // In `disabled` mode you can use this plugin to just generate Webpack Stats JSON file by setting `generateStatsFile` to `true`.
-    //   analyzerMode: "static",
-    //   reportFilename: "report.html",
-    //   openAnalyzer: true,
-    //   logLevel: "info"
-    // })
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: devMode ? "[name].css" : "[name].[hash].css",
-      chunkFilename: devMode ? "[id].css" : "[id].[hash].css"
-    }),
-    new CleanWebpackPlugin(["dist"]),
-    new HtmlWebpackPlugin({
-      title: "Progressive Web Application"
-    }),
-    new webpack.NamedModulesPlugin(),
-    new GenerateSW({
-      swDest: "sw.js",
-      clientsClaim: true,
-      skipWaiting: true
-    }),
-    new InjectManifest({ swSrc: "sw.js" })
-  ],
-  output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist")
-  },
+  plugins: plugins,
   devServer: {
     port: 3040,
     open: true,

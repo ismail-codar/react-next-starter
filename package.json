@@ -60,9 +60,12 @@
     "@types/react-dom": "^16.0.6",
     "add": "^2.0.6",
     "classnames": "^2.2.6",
+    "final-form": "^4.8.3",
     "react": "^16.4.1",
     "react-contextual": "^5.0.2",
     "react-dom": "^16.4.1",
+    "react-final-form": "^3.6.4",
+    "rifm": "^0.3.0",
     "yarn": "^1.7.0"
   }
 }

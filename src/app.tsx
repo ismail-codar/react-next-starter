@@ -1,10 +1,4 @@
-import * as React from "react";
 import { hot } from "react-hot-loader";
+import Index from "./pages/index";
 
-class Test {
-  public tarih = new Date();
-}
-
-const App = () => <div>App. {new Test().tarih.getTime()}</div>;
-
-export default hot(module)(App);
+export default hot(module)(Index);
