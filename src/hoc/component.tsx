@@ -21,15 +21,23 @@ export const createComponent = <
   ) => any,
   classes?: C
 ): React.ComponentType<S> => {
-  const viewFn = (props, view) => {
-    return stateWithHandlers => {
-      return view(stateWithHandlers, props);
-    };
-  };
   const returnedView = (props: any) => {
+    let fromProps = true;
+    const select = store => {
+      if (fromProps) {
+        fromProps = false;
+        return Object.assign(store, props);
+      }
+      return Object.assign({}, props, store);
+    };
+    const viewFn = ((props, view) => {
+      return stateWithHandlers => {
+        return view(stateWithHandlers, props);
+      };
+    })(props, view);
     return (
       <Provider {...Object.assign({}, state, props, handlers)}>
-        <Subscribe>{viewFn(props, view)}</Subscribe>
+        <Subscribe select={select}>{viewFn}</Subscribe>
       </Provider>
     );
   };
