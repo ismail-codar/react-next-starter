@@ -73,6 +73,7 @@ module.exports = {
       ".jsx",
       ".json",
       ".css",
+      ".scss",
       ".html",
       ".woff",
       ".woff2",
@@ -118,7 +119,8 @@ module.exports = {
         test: /\.s?[ac]ss$/,
         use: [
           devMode ? "style-loader" : MiniCssExtractPlugin.loader,
-          "css-loader"
+          "css-loader",
+          "sass-loader"
         ]
       }
     ]

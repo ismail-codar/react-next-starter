@@ -69,6 +69,3 @@ const Index = createComponent(
   })) as StyleRulesCallback<"root">
 );
 export default withRoot(Index);
-
-declare type C = (theme) => { root: null };
-const classes: { [key in keyof ReturnType<C>]: any } = null;

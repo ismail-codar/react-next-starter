@@ -5,7 +5,9 @@ import { Provider, Subscribe } from "react-contextual";
 export const createComponent = <
   S,
   H extends {
-    [key: string]: (e?: any) => (state: S) => Partial<S> | Promise<Partial<S>>;
+    [key: string]: (
+      ...e: any[]
+    ) => (state: S) => Partial<S> | Promise<Partial<S>>;
   },
   C extends StyleRulesCallback<string>
 >(
