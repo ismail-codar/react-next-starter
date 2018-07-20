@@ -9,16 +9,16 @@ import { createComponent } from "../hoc/component";
 const Counter = createComponent(
   { count: 0 },
   {
-    handleIncrease: () => state => ({ count: state.count + 1 }),
-    handleDecrease: () => state => ({ count: state.count - 1 })
+    handleIncrease: state => ({ count: state.count + 1 }),
+    handleDecrease: state => ({ count: state.count - 1 })
   },
-  store => (
+  props => (
     <>
-      <Button onClick={store.handleDecrease} mini>
+      <Button onClick={props.handlers.handleDecrease} mini>
         -
       </Button>
-      {store.count}
-      <Button onClick={store.handleIncrease} mini>
+      {props.state.count}
+      <Button onClick={props.handlers.handleIncrease} mini>
         +
       </Button>
     </>
@@ -28,22 +28,22 @@ const Counter = createComponent(
 const CounterParent = createComponent(
   { startCount: 0 },
   {
-    handleChangeStart: e => state => ({
+    handleChangeStart: (state, binded, e) => ({
       startCount: parseInt(e.target.value)
     })
   },
-  store => (
+  props => (
     <div>
       <InputLabel>
         Start:{" "}
         <Input
           type="number"
-          value={store.startCount}
-          onChange={store.handleChangeStart}
+          value={props.state.startCount}
+          onChange={props.handlers.handleChangeStart}
         />
       </InputLabel>
       <br />
-      <Counter count={store.startCount} />
+      <Counter count={props.state.startCount} />
     </div>
   )
 );
@@ -51,21 +51,23 @@ const CounterParent = createComponent(
 const Index = createComponent(
   {},
   {
-    handleClick: () => state => ({ open: true }),
-    handleClose: () => state => ({ open: false })
+    handleClick: state => ({ open: true }),
+    handleClose: state => ({ open: false })
   },
-  (store, props) => {
+  props => {
     return (
       <div className={props.classes.root}>
         <CounterParent startCount={0} />
       </div>
     );
   },
-  (theme => ({
-    root: {
-      textAlign: "center",
-      paddingTop: theme.spacing.unit * 20
-    }
-  })) as StyleRulesCallback<"root">
+  {
+    classes: (theme => ({
+      root: {
+        textAlign: "center",
+        paddingTop: theme.spacing.unit * 20
+      }
+    })) as StyleRulesCallback<"root">
+  }
 );
 export default withRoot(Index);
