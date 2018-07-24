@@ -4,7 +4,7 @@ import withStyles, {
 } from "@material-ui/core/styles/withStyles";
 import withRoot from "../withRoot";
 import { Button, Input, InputLabel } from "@material-ui/core";
-import { createComponent } from "../hoc/component";
+import { createComponent } from "../../app-packages/sis/hoc/component";
 
 const Counter = createComponent(
   { count: 0 },

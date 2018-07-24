@@ -1,4 +1,4 @@
 import { hot } from "react-hot-loader";
-import Index from "./pages/index";
+import Index from "./pages";
 
 export default hot(module)(Index);

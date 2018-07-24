@@ -9,6 +9,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { GenerateSW, InjectManifest } = require("workbox-webpack-plugin");
+const restServer = require("./scripts/rest-server");
 const devMode = process.env.NODE_ENV !== "production";
 
 const plugins = [
@@ -137,6 +138,9 @@ module.exports = {
     },
     watchOptions: {
       ignored: /node_modules/
+    },
+    setup(app) {
+      restServer(app);
     }
   }
 };

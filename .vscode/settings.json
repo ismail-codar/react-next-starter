@@ -1,0 +1,17 @@
+{
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": ".*\\.(ts|tsx)",
+        "isAsync": true,
+        "cmd": "ts-node ${workspaceRoot}/scripts/dir-watch.ts ${file}"
+      }
+    ]
+  },
+  "code-runner.executorMapByFileExtension": {
+    ".tsx": "ts-node $workspaceRoot/scripts/ts-runner.ts $fullFileName"
+  },
+  "code-runner.executorMap": {
+    "typescript": "ts-node $workspaceRoot/scripts/ts-runner.ts $fullFileName"
+  }
+}
